@@ -10,7 +10,7 @@ export class JogadoresService {
 
   async criarAtualizarJogador(criarJogadorDto: CriarJogadorDto): Promise<void> {
     const { email } = criarJogadorDto;
-    const jogadorEncontrado: Jogador = await this.jogadores.find(
+    const jogadorEncontrado: Jogador = this.jogadores.find(
       (jogador) => jogador.email === email,
     );
     if (jogadorEncontrado) {
@@ -25,7 +25,7 @@ export class JogadoresService {
   }
 
   async consultarJogadoresPeloEmail(email: string): Promise<Jogador> {
-    const jogadorEncontrado: Jogador = await this.jogadores.find(
+    const jogadorEncontrado: Jogador = this.jogadores.find(
       (jogador) => jogador.email === email,
     );
     if (!jogadorEncontrado) {
@@ -34,6 +34,15 @@ export class JogadoresService {
       );
     }
     return jogadorEncontrado;
+  }
+
+  async deletarJogador(email: string): Promise<void> {
+    const jogadorEncontrado = this.jogadores.find(
+      (jogador) => jogador.email === email,
+    );
+    this.jogadores = this.jogadores.filter(
+      (jogador) => jogador.email !== jogadorEncontrado.email,
+    );
   }
 
   private criar(criarJogadorDto: CriarJogadorDto): void {
