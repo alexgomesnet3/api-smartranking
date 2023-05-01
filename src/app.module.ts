@@ -1,18 +1,17 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { JogadoresModule } from './jogadores/jogadores.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
-    MongooseModule.forRoot(
-      'mongodb+srv://alexgomesnet3:M9T8eQgd63KNBd0J@cluster0.hfsjc9j.mongodb.net/smartranking',
-      {
-        userNewUrlParser: true,
-        useCreateIndex: true,
-        useUnifiedTopology: true,
-        useFindAndModify: false,
-      },
-    ),
+    ConfigModule.forRoot({ envFilePath: '.env' }),
+    MongooseModule.forRoot(`${process.env.MONGODB_URL}`, {
+      userNewUrlParser: true,
+      useCreateIndex: true,
+      useUnifiedTopology: true,
+      useFindAndModify: false,
+    }),
     JogadoresModule,
   ],
   controllers: [],

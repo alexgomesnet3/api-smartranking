@@ -34,6 +34,9 @@ lerna-debug.log*
 !.vscode/launch.json
 !.vscode/extensions.json
 
+# ENV Files
+
+.env
+
 # Mongoose Credentials
 
-/src/app.module.ts
