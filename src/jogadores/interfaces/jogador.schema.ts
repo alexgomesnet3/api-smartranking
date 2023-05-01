@@ -10,18 +10,10 @@ export const JogadorSchema = new mongoose.Schema(
       type: String,
       unique: true,
     },
-    nome: {
-      type: String,
-    },
-    ranking: {
-      type: String,
-    },
-    posicaoRanking: {
-      type: Number,
-    },
-    urlFotoJogador: {
-      type: String,
-    },
+    nome: String,
+    ranking: String,
+    posicaoRanking: Number,
+    urlFotoJogador: String,
   },
-  { timestamp: true, collection: 'jogadores' },
+  { timestamps: true, collection: 'jogadores' },
 );
