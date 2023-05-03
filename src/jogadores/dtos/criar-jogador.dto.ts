@@ -1,9 +1,9 @@
-import { IsEAN, IsNotEmpty } from 'class-validator';
+import { IsEmail, IsNotEmpty } from 'class-validator';
 
 export class CriarJogadorDto {
   @IsNotEmpty()
   readonly telefoneCelular: string;
-  @IsEAN()
+  @IsEmail()
   readonly email: string;
   @IsNotEmpty()
   readonly nome: string;
