@@ -22,7 +22,7 @@ export class JogadoresService {
     const jogadorEncontrado = await this.jogadorModel.findOne({ email }).exec();
     if (jogadorEncontrado) {
       throw new BadRequestException(
-        `O jogador já tem o e-mail ${email} cadastrado no sistema.`,
+        `O jogador ja tem o e-mail ${email} cadastrado no sistema.`,
       );
     } else {
       const jogadorCriado = new this.jogadorModel(criarJogadorDto);
@@ -30,15 +30,20 @@ export class JogadoresService {
     }
   }
 
-  /* async criarAtualizarJogador(criarJogadorDto: CriarJogadorDto): Promise<void> {
-    const { email } = criarJogadorDto;
-    const jogadorEncontrado = await this.jogadorModel.findOne({ email }).exec();
-    if (jogadorEncontrado) {
-      await this.atualizar(criarJogadorDto);
-    } else {
-      await this.criar(criarJogadorDto);
+  async atualizarJogador(
+    _id: string,
+    criarJogadorDto: CriarJogadorDto,
+  ): Promise<void> {
+    const jogadorEncontrado = await this.jogadorModel.findOne({ _id }).exec();
+    if (!jogadorEncontrado) {
+      throw new NotFoundException(
+        `O jogador com o ${_id} nao existe no sistema.`,
+      );
     }
-  } */
+    await this.jogadorModel
+      .findOneAndUpdate({ _id }, { $set: criarJogadorDto })
+      .exec();
+  }
 
   async consultarTodosJogadores(): Promise<Jogador[]> {
     return await this.jogadorModel.find().exec();
