@@ -49,28 +49,23 @@ export class JogadoresService {
     return await this.jogadorModel.find().exec();
   }
 
-  async consultarJogadoresPeloEmail(email: string): Promise<Jogador> {
+  async consultarJogadorPeloId(_id: string): Promise<Jogador> {
     const jogadorEncontrado: Jogador = await this.jogadorModel
-      .findOne({ email })
+      .findOne({ _id })
       .exec();
     if (!jogadorEncontrado) {
-      throw new NotFoundException(
-        `Jogador com email ${email} nao foi encontrado`,
-      );
+      throw new NotFoundException(`Jogador com id ${_id} nao foi encontrado`);
     }
     return jogadorEncontrado;
   }
 
-  async deletarJogador(email: string): Promise<any> {
-    return await this.jogadorModel.deleteOne({ email }).exec();
-  }
-
-  private async atualizar(criarJogadorDto: CriarJogadorDto): Promise<Jogador> {
-    return await this.jogadorModel
-      .findOneAndUpdate(
-        { email: criarJogadorDto.email },
-        { $set: criarJogadorDto },
-      )
-      .exec();
+  async deletarJogador(_id: string): Promise<any> {
+    const jogadorEncontrado = await this.jogadorModel.findOne({ _id }).exec();
+    if (!jogadorEncontrado) {
+      throw new NotFoundException(
+        `O jogador com o ${_id} nao existe no sistema.`,
+      );
+    }
+    return await this.jogadorModel.deleteOne({ _id }).exec();
   }
 }
