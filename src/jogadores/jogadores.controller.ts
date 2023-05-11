@@ -17,24 +17,22 @@ import { JogadoresValidacaoParametrosPipe } from './pipes/jogadores-validacao-pa
 export class JogadoresController {
   constructor(private readonly jogadoresService: JogadoresService) {}
 
-  @Post()
-  @UsePipes(ValidationPipe)
-  async criarJogador(@Body() criarJogadorDto: CriarJogadorDto) {
-    await this.jogadoresService.criarJogador(criarJogadorDto);
-  }
-
-  @Put('/:_id')
+  @Put(':_id')
   @UsePipes(ValidationPipe)
   async atualizarJogador(
     @Body() criarJogadorDto: CriarJogadorDto,
     @Param('_id', JogadoresValidacaoParametrosPipe) _id: string,
   ): Promise<void> {
+    console.log(_id);
     await this.jogadoresService.atualizarJogador(_id, criarJogadorDto);
   }
 
-  @Get()
-  async consultarJogadores(): Promise<Jogador[]> {
-    return await this.jogadoresService.consultarTodosJogadores();
+  @Post()
+  @UsePipes(ValidationPipe)
+  async criarJogador(
+    @Body() criarJogadorDto: CriarJogadorDto,
+  ): Promise<Jogador> {
+    return await this.jogadoresService.criarJogador(criarJogadorDto);
   }
 
   @Get('/:_id')
@@ -42,6 +40,11 @@ export class JogadoresController {
     @Param('_id', JogadoresValidacaoParametrosPipe) _id: string,
   ): Promise<Jogador> {
     return await this.jogadoresService.consultarJogadorPeloId(_id);
+  }
+
+  @Get()
+  async consultarJogadores(): Promise<Jogador[]> {
+    return await this.jogadoresService.consultarTodosJogadores();
   }
 
   @Delete('/:_id')
