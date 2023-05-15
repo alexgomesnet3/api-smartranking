@@ -6,10 +6,7 @@ import { ConfigModule } from '@nestjs/config';
 @Module({
   imports: [
     ConfigModule.forRoot({ envFilePath: '.env' }),
-    MongooseModule.forRoot(`${process.env.MONGODB_URL}`, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    }),
+    MongooseModule.forRoot(`${process.env.MONGODB_URL}`, {}),
     JogadoresModule,
   ],
   controllers: [],

@@ -5,10 +5,10 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { CriarJogadorDto } from './dtos/criar-jogador.dto';
+import { AtualizarJogadorDto } from './dtos/atualizar-jogador.dto';
 import { Jogador } from './interfaces/jogador.interface';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { json } from 'stream/consumers';
 
 @Injectable()
 export class JogadoresService {
@@ -33,7 +33,7 @@ export class JogadoresService {
 
   async atualizarJogador(
     _id: string,
-    criarJogadorDto: CriarJogadorDto,
+    atualizarJogadorDto: AtualizarJogadorDto,
   ): Promise<void> {
     const jogadorEncontrado = await this.jogadorModel.findOne({ _id }).exec();
     if (!jogadorEncontrado) {
@@ -42,7 +42,7 @@ export class JogadoresService {
       );
     }
     await this.jogadorModel
-      .findOneAndUpdate({ _id }, { $set: criarJogadorDto })
+      .findOneAndUpdate({ _id }, { $set: atualizarJogadorDto })
       .exec();
   }
 
