@@ -8,6 +8,7 @@ import { CriarJogadorDto } from './dtos/criar-jogador.dto';
 import { Jogador } from './interfaces/jogador.interface';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import { json } from 'stream/consumers';
 
 @Injectable()
 export class JogadoresService {
