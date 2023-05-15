@@ -10,5 +10,5 @@ export class CriarCategoriaDto {
   descricao: string;
   @IsArray()
   @ArrayMinSize(1)
-  evento: Array<Evento>;
+  eventos: Array<Evento>;
 }
