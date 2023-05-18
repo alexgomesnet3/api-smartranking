@@ -10,6 +10,10 @@ export class CategoriasService {
     @InjectModel('Categoria') private readonly categoriaModel: Model<Categoria>,
   ) {}
 
+  async consultarTodasCategorias(): Promise<Array<Categoria>> {
+    return await this.categoriaModel.find().exec();
+  }
+
   async criarCategoria(
     criarCategoriaDto: CriarCategoriaDto,
   ): Promise<Categoria> {
