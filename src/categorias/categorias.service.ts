@@ -4,8 +4,9 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Categoria } from './interfaces/categoria.interface';
 import { Model } from 'mongoose';
+import { Categoria } from './interfaces/categoria.interface';
+//import { Jogador } from '../jogadores/interfaces/jogador.interface';
 import { CriarCategoriaDto } from './dtos/criar-categoria.dto';
 import { AtualizarCategoriaDto } from './dtos/atualizar-categoria.dto';
 
@@ -62,5 +63,33 @@ export class CategoriasService {
     await this.categoriaModel
       .findOneAndUpdate({ categoria }, { $set: atualizarCategoriaDto })
       .exec();
+  }
+
+  async atribuirCategoriaJogador(params: string[]): Promise<void> {
+    const categoria = params['categoria'];
+    const idJogador = params['idJogador'];
+
+    const categoriaEncontrada = await this.categoriaModel
+      .findOne({ categoria })
+      .exec();
+    if (!categoriaEncontrada) {
+      throw new NotFoundException(
+        `A Categoria: ${categoria} nao foi encontrada`,
+      );
+    }
+
+    categoriaEncontrada.jogadores.push(idJogador);
+    await this.categoriaModel
+      .findOneAndUpdate({ categoria }, { $set: categoriaEncontrada })
+      .exec();
+
+    /* const idJogadorEncontrado = await this.jogadorModel
+      .findOne({ idJogador })
+      .exec();
+    if (!idJogadorEncontrado) {
+      throw new NotFoundException(
+        `O jogador com o ${idJogador} nao existe no sistema.`,
+      );
+    } */
   }
 }

@@ -48,4 +48,10 @@ export class CategoriasController {
       atualizarCategoriaDto,
     );
   }
+
+  @Post('/:categoria/jogadores/:idJogador')
+  async atribuirCategoriaJogador(@Param() params: string[]): Promise<void> {
+    //console.log(`params: ${JSON.stringify(params)}`);
+    return await this.categoriasService.atribuirCategoriaJogador(params);
+  }
 }
