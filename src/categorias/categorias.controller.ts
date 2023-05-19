@@ -32,6 +32,7 @@ export class CategoriasController {
   }
 
   @Get('/:categoria')
+  @UsePipes(ValidationPipe)
   async consultarCagetoriaId(
     @Param('categoria', CategoriasValidacaoParametrosPipe) categoria: string,
   ): Promise<Categoria> {
@@ -39,6 +40,7 @@ export class CategoriasController {
   }
 
   @Put('/:categoria')
+  @UsePipes(ValidationPipe)
   async atualizarCategoria(
     @Body() atualizarCategoriaDto: AtualizarCategoriaDto,
     @Param('categoria', CategoriasValidacaoParametrosPipe) categoria: string,
@@ -50,6 +52,7 @@ export class CategoriasController {
   }
 
   @Post('/:categoria/jogadores/:idJogador')
+  @UsePipes(ValidationPipe)
   async atribuirCategoriaJogador(@Param() params: string[]): Promise<void> {
     //console.log(`params: ${JSON.stringify(params)}`);
     return await this.categoriasService.atribuirCategoriaJogador(params);
