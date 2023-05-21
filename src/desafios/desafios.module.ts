@@ -4,6 +4,6 @@ import { DesafiosService } from './desafios.service';
 
 @Module({
   controllers: [DesafiosController],
-  providers: [DesafiosService]
+  providers: [DesafiosService],
 })
 export class DesafiosModule {}
